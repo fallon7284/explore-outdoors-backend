@@ -1,16 +1,23 @@
 const router = require('express').Router()
+const { Pins } = require('../db')
 
-router.get('/', (req, res, next) => {
-    const pins = require('../db/mockDbPins')
-    console.log(pins)
-    res.send(pins)
+router.get('/', async (req, res, next) => {
+    try{
+        const pins = await Pins.findAll()
+        res.send(pins)
+    } catch(error){
+        console.log(error)
+    }
 })
 
-router.post('/', (req, res, next) => {
-    const pins = require('../db/mockDbPins')
-    console.log(req, 'this is the request')
-    pins.push(req.body)
-    res.send(pins)
+router.post('/', async (req, res, next) => {
+    try{
+        const pins = await Pins.create(req.body)
+        console.log(pins)
+        res.status(200).send(pins)
+    } catch(error){
+        console.log(error)
+    }
 })
 
 module.exports = router
