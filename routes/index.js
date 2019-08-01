@@ -7,4 +7,8 @@ router.use(cors())
 /* GET home page. */
 router.use('/pins', require('./pins'));
 
+router.use('/camps', require('./camps'))
+
+router.use('/hikes', require('./hikes'))
+
 module.exports = router;

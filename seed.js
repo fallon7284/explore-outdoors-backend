@@ -1,4 +1,4 @@
-const { db, Pins } = require('./db')
+const { db, Pins, Camps } = require('./db')
 const { green, red } = require('chalk')
 
 
@@ -13,12 +13,22 @@ const seedPins = [
     {formatted_address: "Glacier National Park, Montana, USA", lat: 48.7596128, lng: -113.7870225, name: "Glacier National Park"}
 ]
 
+const seedCamp = [{isBookable: true,
+  isCampground: true,
+  latitude: 40.5958,
+  location: "East New York, New York",
+  longitude: -73.8858,
+  name: "Camp Gateway- Brooklyn Ny",
+  numCampsites: 45,
+  url: "https://www.rei.com/campgrounds"
+}]
+
 
 const seed = async () => {
-    console.log(Pins, db)
     try {
       await db.sync({ force: true })
       await Pins.bulkCreate(seedPins)
+      await Camps.bulkCreate(seedCamp)
   
     } catch (err) {
      console.log(red(err))
