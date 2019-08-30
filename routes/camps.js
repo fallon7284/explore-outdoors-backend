@@ -3,8 +3,9 @@ const { Camps } = require('../db')
 
 router.get('/', async (req, res, next) => {
     try{
-        const camps = await Camps.findAll()
-        res.send(camps)
+        const camp = await Camps.findAll()
+        console.log(camp)
+        res.send(camp)
     } catch(error){
         console.log(error)
     }
