@@ -1,4 +1,4 @@
-const { db, Pins, Camps } = require('./db')
+const { db, Pins, Camps, Boulders } = require('./db')
 const { green, red } = require('chalk')
 
 
@@ -11,6 +11,21 @@ const seedPins = [
     {formatted_address: "Acadia National Park, Maine, USA", lat: 44.3385559, lng: -68.2733346, name: "Acadia National Park"},
     {formatted_address: "Appalachia Trailhead, Randolph, NH 03593, USA",lat: 44.3715828,lng: -71.2887873, name: "Appalachia Trailhead, White Mountains"},
     {formatted_address: "Glacier National Park, Montana, USA", lat: 48.7596128, lng: -113.7870225, name: "Glacier National Park"}
+]
+
+const seedBoulders = [
+  {
+    id: 106971393,
+    imgMedium: "https://cdn-files.apstatic.com/climb/107860348_medium_1494246769.jpg",
+    imgSmall: "https://cdn-files.apstatic.com/climb/107860348_small_1494246769.jpg",
+    latitude: 40.7692,
+    location: ["New York", "New York City", "Central Park", "Rat Rock"],
+    longitude: -73.9776,
+    name: "The flake",
+    rating: "V0-1",
+    stars: 3.7,
+    url: "https://www.mountainproject.com/route/106971393/the-flake",
+  }
 ]
 
 const seedCamp = [{isBookable: true,
@@ -29,7 +44,7 @@ const seed = async () => {
       await db.sync({ force: true })
       await Pins.bulkCreate(seedPins)
       await Camps.bulkCreate(seedCamp)
-  
+      await Boulders.bulkCreate(seedBoulders)
     } catch (err) {
      console.log(red(err))
     }
