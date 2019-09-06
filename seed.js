@@ -29,6 +29,7 @@ const seedBoulders = [
 ]
 
 const seedCamp = [{isBookable: true,
+  imgUrl: "https://www.rei.com/assets/camp/images/campground-placeholder-image/live.png",
   isCampground: true,
   latitude: 40.5958,
   location: "East New York, New York",

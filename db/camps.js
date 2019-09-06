@@ -2,6 +2,9 @@ const db = require('./database')
 const Sequelize = require('sequelize')
 
 const Camps = db.define('camps', {
+    imgUrl: {
+        type: Sequelize.STRING
+    },
     latitude: {
         type: Sequelize.FLOAT,
         allowNull: false
