@@ -11,4 +11,6 @@ router.use('/camps', require('./camps'))
 
 router.use('/hikes', require('./hikes'))
 
+router.use('/boulders', require('./boulders'))
+
 module.exports = router;
