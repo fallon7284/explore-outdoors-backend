@@ -1,12 +1,20 @@
 const router = require('express').Router()
 const { Hikes } = require('../db')
+const cache = require('./middleware/cache')
 
-router.get('/', async (req, res, next) => {
-    try{
-        const hikes = await Hikes.findAll()
-        res.send(hikes)
-    } catch(error){
-        console.log(error)
+router.get('/', cache.get, async (req, res, next) => {
+    const cacheData = cache.get(req)
+    if (cacheData === null){
+        try{
+            const hikes = await Hikess.findAll()
+            cache.set(req, hikes)
+            res.send(hikes)
+        } catch(error){
+            console.log(error)
+        }
+    }
+    else {
+        res.send(cacheData)
     }
 })
 
