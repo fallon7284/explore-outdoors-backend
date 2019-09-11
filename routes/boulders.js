@@ -3,19 +3,12 @@ const { Boulders } = require('../db')
 const cache = require('./middleware/cache')
 
 router.get('/', async (req, res, next) => {
-    const cacheData = cache.get(req)
-    if (cacheData === null){
-        try{
-            const boulders = await Boulders.findAll()
-            console.log('hitting database')
-            cache.set(req, boulders)
-            res.send(boulders)
-        } catch(error){
-            console.log(error)
-        }
-    }
-    else {
-        res.send(cacheData)
+    try{
+        const boulders = await Boulders.findAll()
+        cache.set(req, boulders)
+        res.send(boulders)
+    } catch(error){
+        console.log(error)
     }
 })
 
@@ -28,7 +21,7 @@ router.get('/:id', async (req, res, next) => {
     }
 })
 
-router.post('/', async (req, res, next) => {
+router.post('/', cache.get, cache.set, async (req, res, next) => {
     try{
         const boulders = await Boulders.bulkCreate(req.body)
         res.status(200).send(boulders)
