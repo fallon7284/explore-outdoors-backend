@@ -10,7 +10,6 @@ router.get('/', async (req, res, next) => {
         try{
             const {lat, lon, key} = req.query
             const { data } = await axios.get(`https://www.hikingproject.com/data/get-trails?lat=${lat}&lon=${lon}&maxResults=75&minStars=4&minLength=5&maxDistance=50&key=${key}`)
-            console.log('data', lat, lon, key)
             const formattedHikes = data.trails.map(h => {
                 const { 
                     ascent, conditionDetails, conditionStatus, 

@@ -10,7 +10,7 @@ router.get('/', async (req, res, next) => {
         try{
             const { lat, lon, key } = req.query
             const { data } = await axios.get(`https://www.hikingproject.com/data/get-campgrounds?lat=${lat}&lon=${lon}&maxResults=50&maxDistance=50&key=${key}`)
-            const campgrounds = data.campgrounds.filter(c => {return c.isCampground && c.numCampsites > 0})
+            const campgrounds = data.campgrounds.filter(c => {return c.isCampground})
             const formattedCampgrounds = campgrounds.map(c => {
             const { imgUrl, name, location, latitude, longitude, isBookable, isCampground, url, numCampsites } = c
             return { imgUrl, name, location, latitude, longitude, isBookable, isCampground, url, numCampsites}
