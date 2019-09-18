@@ -26,16 +26,16 @@ router.get('/', async (req, res, next) => {
 
 
 
-router.get('/:id', cache.get, async (req, res, next) => {
+router.get('/:id', async (req, res, next) => {
     try{
         const camp = await Camps.findOne({where: {id: req.params.id}})
         res.send(camp)
     }catch(error){
         console.log(error)
     }
-}, cache.set)
+})
 
-router.post('/', async (req, res, next) => {
+router.post('/', cache.get, cache.set, async (req, res, next) => {
     try{
         const camps = await Camps.bulkCreate(req.body)
         res.status(200).send(camps)

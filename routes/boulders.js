@@ -36,7 +36,7 @@ router.get('/:id', async (req, res, next) => {
     }
 })
 
-router.post('/', async (req, res, next) => {
+router.post('/', cache.get, cache.set, async (req, res, next) => {
     try{
         const boulders = await Boulders.bulkCreate(req.body)
         res.status(200).send(boulders)
