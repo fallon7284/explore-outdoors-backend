@@ -11,7 +11,6 @@ router.get('/', async (req, res, next) => {
         try{
             const {lat, lon, minDiff, maxDiff, key} = req.query
             const { data } = await axios.get(`https://www.mountainproject.com/data/get-routes-for-lat-lon?lat=${lat}&lon=${lon}&maxDistance=50&minDiff=V${minDiff}&maxDiff=V${maxDiff}&key=${key}`)
-            console.log('data', lat, lon, minDiff, maxDiff, key)
             const formattedBoulders = data.routes.map(t => {
                 const { name, rating, stars, location,
                 latitude, longitude, imgSmall, imgMedium, url} = t
