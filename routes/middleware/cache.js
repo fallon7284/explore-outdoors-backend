@@ -7,24 +7,15 @@ function getUrlFromRequest(req) {
 }
 
 const get = (req, res, next) => {
-    console.log('ran get function')
     const url = getUrlFromRequest(req)
     const data = myCache.get(url)
-    if(data){
-        console.log('got data from cache')
-        res.status(200).send(data)
-    }
-    else {
-        return next()
-    }
+    return data
 }
 
-const set = (req, res, next) => {
-    console.log('ran set function')
+const set = (req, data) => {
     const url = getUrlFromRequest(req)
-    myCache.set(url, req.body)
-    console.log('set data on cache', myCache.data)
-    return next()
+    myCache.set(url, data)
+
 }
 
 
