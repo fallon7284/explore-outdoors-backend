@@ -2,14 +2,20 @@ const router = require('express').Router()
 const { Boulders } = require('../db')
 const cache = require('./middleware/cache')
 const axios = require('axios')
+const trimLatLon = require('./utilities/trimLatLon')
 
 
 router.get('/', async (req, res, next) => {
-    const response = cache.get(req, res, next)
-    if (response) res.status(200).send(response)
+    let { minDiff, maxDiff, key } = req.query
+    const { lat, lon } = trimLatLon(req.query.lat, req.query.lon)
+    req.query.lat = lat
+    req.query.lon = lon
+    const response = cache.get(req)
+    if (response) {
+        res.status(200).send(response)
+    }
     else {
         try{
-            const {lat, lon, minDiff, maxDiff, key} = req.query
             const { data } = await axios.get(`https://www.mountainproject.com/data/get-routes-for-lat-lon?lat=${lat}&lon=${lon}&maxDistance=50&minDiff=V${minDiff}&maxDiff=V${maxDiff}&key=${key}`)
             const formattedBoulders = data.routes.map(t => {
                 const { name, rating, stars, location,
