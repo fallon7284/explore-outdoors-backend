@@ -2,13 +2,20 @@ const router = require('express').Router()
 const { Camps } = require('../db')
 const cache = require('./middleware/cache')
 const axios = require('axios')
+const trimLatLon = require('./utilities/trimLatLon')
 
 router.get('/', async (req, res, next) => {
+    let { key } = req.query
+    const { lat, lon } = trimLatLon(req.query.lat, req.query.lon)
+    req.query.lat = lat
+    req.query.lon = lon
     const response = cache.get(req)
-    if (response) res.status(200).send(response)
+    if (response) {
+        res.status(200).send(response)
+    }
     else {
         try{
-            const { lat, lon, key } = req.query
+            
             const { data } = await axios.get(`https://www.hikingproject.com/data/get-campgrounds?lat=${lat}&lon=${lon}&maxResults=50&maxDistance=50&key=${key}`)
             const campgrounds = data.campgrounds.filter(c => {return c.isCampground})
             const formattedCampgrounds = campgrounds.map(c => {
