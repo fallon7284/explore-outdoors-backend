@@ -1,6 +1,8 @@
 const NodeCache = require( "node-cache" );
 const myCache = new NodeCache({stdTTL: 60 * 60 * 24});
 
+
+
 function getUrlFromRequest(req) {
     const url = req.protocol + '://' + req.headers.host + req.originalUrl
     return url
