@@ -1,16 +1,15 @@
-const express = require('express');
+const express = require("express");
 const router = express.Router();
-const cors = require('cors')
+const cors = require("cors");
 
-
-router.use(cors())
+router.use(cors());
 /* GET home page. */
-router.use('/pins', require('./pins'));
+router.use("/pins", require("./pins"));
 
-router.use('/camps', require('./camps'))
+router.use("/camps", require("./camps"));
 
-router.use('/hikes', require('./hikes'))
+router.use("/hikes", require("./hikes"));
 
-router.use('/boulders', require('./boulders'))
+router.use("/boulders", require("./boulders"));
 
 module.exports = router;
